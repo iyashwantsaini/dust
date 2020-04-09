@@ -1,0 +1,6 @@
+* .vscode folder contains tasks.json and props.json = importnat files
+
+*-- install c++ code runner extension
+*-- change settings of extension to run in terminal
+*-- add mingw-bin,include bits,c++ to include path
+*-- BUILD=ctrl+shift+b
