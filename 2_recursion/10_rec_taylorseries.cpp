@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 
+//recursive method
 float e(float x, float n){
 	static float p{1};
 	static float f{1};
