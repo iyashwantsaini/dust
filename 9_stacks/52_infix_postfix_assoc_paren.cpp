@@ -2,7 +2,7 @@
 using namespace std;
 
 // infix to postfix when expression also contains parentehesis and R->L associativity
-// yet to be made
+// here outstack and instack precedence are used 
 
 class Stack{
     private:
@@ -78,25 +78,49 @@ class Stack{
 };
 
 int isOperant(char x){
-    if(x=='+'||x=='-'||x=='*'||x=='/'){
+    if(x=='+'||x=='-'||x=='*'||x=='/'||x=='^'||x=='('||x==')'){
         return 1;
     }else{
         return 0;
     }
 }
 
-int prec(char x){
+int outStackPrec(char x){
     if(x=='+'||x=='-'){
         return 1;
     }else if(x=='*'||x=='/'){
-        return 2;
-    }else{
+        return 3;
+    }else if(x=='^'){
+        return 6;
+    }else if(x=='('){
+        return 7;
+    }else if(x==')'){
         return 0;
+    }else{
+        return -1;
+    }
+}
+
+int inStackPrec(char x){
+    if(x=='+'||x=='-'){
+        return 2;
+    }else if(x=='*'||x=='/'){
+        return 4;
+    }else if(x=='^'){
+        return 5;
+    }else if(x=='('){
+        return 0;
+    }else if(x==')'){
+        return -1; //this one is not needed btw
+    }else{
+        return -1;
     }
 }
 
 int main(){
-    char infix[]={'a','+','b','*','c','-','d','/','e','\0'};
+
+    // ((a+b)*c)-d^e^f
+    char infix[]={'(','(','a','+','b',')','*','c',')','-','d','^','e','^','f','\0'};
     char *postfix= new char[strlen(infix)+1];
     Stack s(strlen(infix)+1);
     
@@ -104,13 +128,27 @@ int main(){
     int j=0;
     while(infix[i]!='\0'){
         if(isOperant(infix[i])){
-            if(prec(infix[i])>prec(s.getTopElement())){
-                s.push(infix[i]);
-                i++;
+
+            if(outStackPrec(infix[i])>inStackPrec(s.getTopElement())){
+                
+                if(outStackPrec(infix[i])!=0){
+                    s.push(infix[i]);
+                    i++;
+                }else{
+                    s.pop();
+                    i++;
+                    cout<<"reached hell!"<<endl;
+                }
+            
             }else{
-                postfix[j++]=s.pop();
+                if(infix[i]==')'&&s.getTopElement()!='('){
+                    postfix[j++]=s.pop();
+                }else{
+                    s.pop();
+                }
             }
         }else{
+            cout<<"added : "<<infix[i]<<" to postfix"<<endl;
             postfix[j++]=infix[i++];
         }
     }
