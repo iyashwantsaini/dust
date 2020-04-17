@@ -2,26 +2,25 @@
 using namespace std;
 
 // program for evaluating a postfix expression
-// yet to be made
 
 class Stack{
     private:
         int size;
         int top;
-        char *s;
+        int *s;
     public:
         Stack(){
             top=-1;
         }
         Stack(int size){
             this->size=size;
-            s=new char[size];
+            s=new int[size];
             top=-1;
         }
         ~Stack(){
             delete s;
         }
-        void push(char x){
+        void push(int x){
             if(top>=size-1){
                 cout<<"Stack Full!"<<endl;
                 return;
@@ -30,12 +29,12 @@ class Stack{
             s[top]=x;
             cout<<"Pushed : "<<x<<" at index : "<<top<<endl;
         }
-        char pop(){
+        int pop(){
             if(top<0){
                 cout<<"Stack empty already!"<<endl;
                 return 0;
             }
-            char bakup=s[top];
+            int bakup=s[top];
             top=top-1;
             cout<<"Popped : "<<bakup<<" from index : "<<top+1<<endl;
             return bakup;
@@ -54,7 +53,7 @@ class Stack{
         int getTopIndex(){
             return top;
         }
-        char getTopElement(){
+        int getTopElement(){
            return s[top]; 
         }
         int isEmpty(){
@@ -85,44 +84,41 @@ int isOperant(char x){
     }
 }
 
-int prec(char x){
-    if(x=='+'||x=='-'){
-        return 1;
-    }else if(x=='*'||x=='/'){
-        return 2;
-    }else{
-        return 0;
+int getResult(int a, int b, char op){
+    if(op=='+'){
+        return b+a;
+    }else if(op=='-'){
+        return b-a;
+    }else if(op=='*'){
+        return b*a;
+    }else if(op=='/'){
+        return b/a;
     }
 }
 
 int main(){
-    char infix[]={'a','+','b','*','c','-','d','/','e','\0'};
-    char *postfix= new char[strlen(infix)+1];
-    Stack s(strlen(infix)+1);
-    
+    char postfix[]={'3','5','*','6','2','/','+','4','-','\0'};
+    Stack s(strlen(postfix)+1);
+
+    int x1=0;
+    int x2=0;
+    int result=0;
     int i=0;
-    int j=0;
-    while(infix[i]!='\0'){
-        if(isOperant(infix[i])){
-            if(prec(infix[i])>prec(s.getTopElement())){
-                s.push(infix[i]);
-                i++;
-            }else{
-                postfix[j++]=s.pop();
-            }
+    while(postfix[i]!='\0'){
+        if(isOperant(postfix[i])){
+            x2=s.pop();
+            x1=s.pop();
+            result=getResult(x2,x1,postfix[i]);
+            s.push(result);
+            i++;
         }else{
-            postfix[j++]=infix[i++];
+            s.push(postfix[i]-'0');
+            i++;
         }
     }
-    while(s.getTopIndex()>=0){
-        postfix[j++]=s.pop();
-    }
-    postfix[j]='\0';
 
-    i=0;
-    while(postfix[i]){
-        cout<<postfix[i]<<endl;
-        i++;
-    }
+    int ans=0;
+    ans=s.pop();
+    cout<<"Answer = "<<ans<<endl;
 }
 
