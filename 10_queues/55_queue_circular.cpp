@@ -1,8 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// here unnecessary wastage of space is present
-
 class Queue{
     private:
         int size;
@@ -12,44 +10,55 @@ class Queue{
     public:
         Queue(){
             size=0;
-            front=-1;
-            back=-1;
+            front=0;
+            back=0;
             storage=NULL;
         }
         Queue(int s){
             this->size=s;
             this->storage=new int[s];
-            front=-1;
-            back=-1;
+            for(int i=0;i<size;i++){
+                storage[i]=0;
+            }
+            Display();
+            front=0;
+            back=0;
         }
         ~Queue(){
             delete storage;
         }
         void Enqueue(int num){
-            if(back==size-1){
-                cout<<"Queue already full!"<<endl;
-                return;
+            if((back+1)%size==front){
+                cout<<"Queue full!"<<endl;
+            }else{
+                if((front>back)&&(front-back)==2){ // to make sure that front index always remains empty
+                    cout<<"Queue Full!"<<endl;
+                }else{
+                    back=(back+1)%size;
+                    storage[back]=num;
+                    cout<<"Added : "<<num<<" to index : "<<back<<endl;
+                }
             }
-            back+=1;
-            storage[back]=num;
-            cout<<"Added : "<<num<<" to index : "<<back<<endl;
         }
         void Dequeue(){
             if(back==front){
                 cout<<"Queue already empty!"<<endl;
                 return;
+            }else{
+                int x=storage[front];
+                storage[front]=0;
+                front=(front+1)%size;
+                cout<<"Removed : "<<x<<" from index : "<<front-1<<endl;
             }
-            front+=1;
         }
         void Display(){
+            cout<<"Elements : "<<endl;
             if(back==front){
                 cout<<"Queue empty!"<<endl;
                 return;
             }
-            int f=front+1;
-            while(f!=back+1){
-                cout<<storage[f]<<endl;
-                f++;
+            for(int i=0;i<size;i++){
+                cout<<storage[i]<<endl;
             }
         }
         int isEmpty(){
@@ -88,22 +97,28 @@ class Queue{
 };
 
 int main(){
-    Queue q(20);
+    Queue q(5);
 
     q.isEmpty();
     
-    q.Enqueue(1);
-    q.Enqueue(2);
-    q.Enqueue(3);
-    q.Enqueue(4);
-    q.Enqueue(5);
+    q.Enqueue(10);
+    q.Enqueue(20);
+    q.Enqueue(30);
+    q.Enqueue(40);
+    q.Enqueue(50);
     q.Display();
 
     q.Dequeue();
     q.Dequeue();
     q.Display();
 
-    cout<<q.getFirst()<<endl;
-    cout<<q.getLast()<<endl;
-    cout<<q.getLength()<<endl;
+    q.Enqueue(50);
+    q.Enqueue(60);
+    q.Display();
+    q.Enqueue(70);
+
+
+    // cout<<q.getFirst()<<endl;
+    // cout<<q.getLast()<<endl;
+    // cout<<q.getLength()<<endl;
 }
