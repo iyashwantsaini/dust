@@ -143,5 +143,7 @@ int main(){
     t.LevelOrder(t.GetRoot());
     cout<<endl;
 
+    cout<<"Height of tree : "<<t.Height(t.GetRoot());
+
     return 0;
 }
