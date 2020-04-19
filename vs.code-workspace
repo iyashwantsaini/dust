@@ -44,7 +44,12 @@
 			"xstring": "cpp",
 			"xtr1common": "cpp",
 			"xutility": "cpp",
-			"random": "cpp"
+			"random": "cpp",
+			"array": "cpp",
+			"bitset": "cpp",
+			"string_view": "cpp",
+			"regex": "cpp",
+			"valarray": "cpp"
 		}
 	}
 }
