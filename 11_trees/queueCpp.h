@@ -1,6 +1,8 @@
 #ifndef queueCpp_h
 #define queueCpp_h
 
+//JUST BASIC QUEUE
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -35,44 +37,30 @@ class Queue{
         }
         void Enqueue(Node *num){
             if(back==size-1){
-                cout<<"Queue already full!"<<endl;
+                // cout<<"Queue Full!"<<endl;
                 return;
             }
             back+=1;
             storage[back]=num;
-            cout<<"Added : "<<num<<" to index : "<<back<<endl;
+            // cout<<"Added : "<<num<<" to index : "<<back<<endl;
         }
         Node* Dequeue(){
             Node *x=NULL;
             if(back==front){
-                cout<<"Queue already empty!"<<endl;
+                // cout<<"Queue Empty!"<<endl;
                 // return;
             }
             x=storage[front+1];
             front+=1;
             return x;
         }
-        void Display(){
-            if(back==front){
-                cout<<"Queue empty!"<<endl;
-                return;
-            }
-            int f=front+1;
-            while(f!=back+1){
-                cout<<storage[f]<<endl;
-                f++;
-            }
-        }
         int isEmpty(){
             if(back==front){
-                cout<<"Queue empty!"<<endl;
+                // cout<<"Queue Empty!"<<endl;
                 return 1;
             }else{
                 return 0;
             }
-        }
-        int getLength(){
-            return back-front;
         }
 };
 
