@@ -175,6 +175,13 @@ class BSTree{
             }
             return p;  
         }
+        Node* MaxFind(Node *p){
+            int max=0;
+            while(p->rchild){
+                p=MaxFind(p->rchild);
+            }
+            return p;
+        }
 
 };
 
@@ -223,15 +230,18 @@ int main(){
     cout<<"Preorder : "<<endl;
     bst.PreOrder(bst.GetRoot());cout<<"\n";
 
-    bst.DeleteRec(bst.GetRoot(),10);
-    cout<<"Preorder : "<<endl;
-    bst.PreOrder(bst.GetRoot());cout<<"\n";
-    bst.DeleteRec(bst.GetRoot(),1);
-    cout<<"Preorder : "<<endl;
-    bst.PreOrder(bst.GetRoot());cout<<"\n";
-    bst.DeleteRec(bst.GetRoot(),20);
-    cout<<"Preorder : "<<endl;
-    bst.PreOrder(bst.GetRoot());cout<<"\n";
+    // bst.DeleteRec(bst.GetRoot(),10);
+    // cout<<"Preorder : "<<endl;
+    // bst.PreOrder(bst.GetRoot());cout<<"\n";
+    // bst.DeleteRec(bst.GetRoot(),1);
+    // cout<<"Preorder : "<<endl;
+    // bst.PreOrder(bst.GetRoot());cout<<"\n";
+    // bst.DeleteRec(bst.GetRoot(),20);
+    // cout<<"Preorder : "<<endl;
+    // bst.PreOrder(bst.GetRoot());cout<<"\n";
+
+    cout<<bst.MaxFind(bst.GetRoot())->data;
+
 
     return 0;
 }
