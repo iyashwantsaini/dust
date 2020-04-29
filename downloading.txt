@@ -1,0 +1,2 @@
+Link : https://www.learningcrux.com/course/mastering-data-structures-algorithms-using-c-andc
+Replace : /video/ with /play/ and download with idm
