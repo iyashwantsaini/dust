@@ -26,7 +26,7 @@ int main(){
     //STEP1
     //finding min
     for(int i=1;i<=n;i++){
-        for(int j=i;j<=n;j++){
+        for(int j=i;j<=n;j++){  //will check only upper triangular as j=i
             if(cost[i][j]<min){
                 min=cost[i][j];
                 u=i; //saves value 1
@@ -38,7 +38,7 @@ int main(){
     t[0][0]=u;
     t[1][0]=v;
     near[u]=near[v]=0; //0 means used in MST already
-    // updating edge is near to 6 or 1 in "near"
+    // updating all nodes whether they are near to 6 or 1 in "near" array
     for(int i=1;i<=n;i++){
         if(near[i]!=0){
             if(cost[i][u]<cost[i][v]){
@@ -51,17 +51,17 @@ int main(){
 
     //STEP2 --REPEATING STEP
     int k=0;
-    for(int i=1;i<n-1;i++){
+    for(int i=1;i<n-1;i++){ //upto n-1 because last will not be connected to anyone
         min=I; //resetting min to infinity
 
         // finding next minimum from remaining
         for(int j=1;j<=n;j++){
             if(near[j]!=0&&cost[j][near[j]]<min){
-                k=j;
+                k=j; // k saves ndoe joining minimum node
                 min=cost[j][near[j]];
             }
         }
-        //savin min edge and making used nodes in "near" 0
+        //saving min edge and making used nodes in "near" 0
         t[1][i]=k;
         t[0][i]=near[k];
         near[k]=0;

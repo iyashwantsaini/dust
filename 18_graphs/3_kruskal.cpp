@@ -31,6 +31,7 @@ int findfn(int u){
     while(myset[x]>0){
         x=myset[x];
     }
+    //collapsing part
     while(u!=x){
         v=myset[u];
         myset[u]=x;
@@ -54,8 +55,8 @@ int main(){
         for(j=0;j<e;j++){ //searching in array edges
             if(included[j]==0&&edges[2][j]<min){
                 min=edges[2][j];
-                k=j;
-                // u&v are vertice names
+                k=j; //saving minimum edge in k
+                // u&v are vertices
                 u=edges[0][j];
                 v=edges[1][j];
             }
@@ -70,7 +71,6 @@ int main(){
             i++;
         }
         included[k]=1; 
-
     }
 
     // print t
