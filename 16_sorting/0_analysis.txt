@@ -1,0 +1,25 @@
+// no of comarisions
+// no of swaps
+// adaptive -- ie stop when complete
+// stable --order maintained if elements are duplicate
+// extra memory
+
+
+// 1. bubble
+// 2. insertion
+// 3. selection
+// 4. heap
+// 5. merge
+// 6. quick
+// 7. tree
+// 8. shell
+// 9. count
+// 10. bucket/bin
+// 11. radix
+
+// 1-8 = comparision based sorts
+// 9-11 = index based sorts
+
+// 1-3 = O(n^2)
+// 4-8 = O(n^(3/2))
+// 9-11 = O(n)
