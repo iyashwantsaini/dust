@@ -67,7 +67,7 @@ int main(){
         return 0;
     }
     
-    // simplify both sides by divigind with g
+    // simplify both sides by dividing with g
     a/=g;
     b/=g;
     d/=g;
