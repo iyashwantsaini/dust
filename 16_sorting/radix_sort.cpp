@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// 10
+// 651 329 45 32 839 20 355 6 9 436
+
 int main() {
     int n;
     cin>>n;
@@ -41,6 +44,26 @@ int main() {
                 c++;
             }
         }
+
+    // if(one ==0){
+    //     int num=0;
+    //     c=0;
+    //     for(int i=0;i<10;i++){
+    //         num=0;
+    //         for(it=v[i].begin();it!=v[i].end();it++){
+    //             num++;
+    //             c++;
+    //         }
+    //         int tot=c;
+    //         for(int i=tot-num;i<tot&&tot>0&&i<n;i++,tot--){
+    //             int tempo=data[i];
+    //             data[i]=data[tot-1];
+    //             data[tot-1]=tempo;
+    //         }
+    //     }
+    //     one++;
+    // }
+
         for(int j = 0; j<10; j++) {
             while(!v[j].empty()) {
                 v[j].erase(v[j].begin());
