@@ -1,105 +1,130 @@
-//---www.skellainnovations.com---//
-
 #include<iostream>
-#include<conio.h>
+#include<queue>
+#include<vector>
+#include<algorithm>
+
+// 6
+// 1 0 4
+// 2 1 5
+// 3 2 2
+// 4 3 1
+// 5 4 6
+// 6 6 3
+
 using namespace std;
 
-void SearchStack01(int pnt,int tm);
-void SearchStack02(int pnt, int tm);
-void AddQue(int pnt);
-int at[50], bt[50], ct[50]={0}, qt, rqi[50]={0}, c=0, st, flg=0, tm=0, noe=0, pnt=0, btm[50]={0}, tt, wt;
-float att, awt;
+class Process{
+	public:
+		int process_id;
+		int arrival_time;
+		int burst_time;
+		int remaining_time;
+		int completion_time = 0;
+		int turn_around_time = -1;
+		int waiting_time = -1;
+		
+		Process(int p_id, int a_time, int b_time){
+			this->process_id = p_id;
+			this->arrival_time = a_time;
+			this->burst_time = b_time;
+			this->remaining_time = this->burst_time;
+		}
+		
+		bool operator!=(Process& p){
+			if (this->process_id == p.process_id) return false;
+			return true;
+		}
+};
 
-main(){
-int n;
-cin>>n;
-int x;
-for(int x=0;x<n;x++){
-    cin>>x;
-    cin>>at[x];
-    cin>>bt[x];
-   //  btm[x]=bt[x];
-    }
+int main(){
 
-qt=1;
+   int n;
+   cin>>n;
+   int process_id[n]={0};
+	int arrival_time[n]={0};
+	int burst_time[n]={0};
+   for(int i=0;i<n;i++){
+      cin>>process_id[i];
+      cin>>arrival_time[i];
+      cin>>burst_time[i];
+   }
+   int tq=1;
 
-cout<<endl<<"GANTT CHART"<<endl<<at[0];
-do{
-    if(flg==0){
-       st=at[0];
-       //---ReduceBT
-       if(btm[0]<=qt){
-          tm=st+btm[0];
-          btm[0]=0;
-          SearchStack01(pnt,tm);}
-       else{
-          btm[0]=btm[0]-qt;
-          tm=st+qt;
-          SearchStack01(pnt,tm);
-          AddQue(pnt);}
-    }//if
- 
-    else{
-       pnt=rqi[0]-1;
-       st=tm;
-       //---DeleteQue
-       for(int x=0;x<noe && noe!=1;x++){
-          rqi[x]=rqi[x+1];}
-       noe--;
-       //---ReduceBT
-       if(btm[pnt]<=qt){
-          tm=st+btm[pnt];
-          btm[pnt]=0;
-          SearchStack02(pnt, tm);}
-       else{
-         btm[pnt]=btm[pnt]-qt;
-          tm=st+qt;
-          SearchStack02(pnt, tm);
-          AddQue(pnt);}
-    }//else
+	vector<Process> process_list;
+	
+	queue<Process*> ready_queue;
+	vector<Process> gantt;
 
-    //AssignCTvalue
-    if(btm[pnt]==0){
-       ct[pnt]=tm;
-    }//if
 
-   flg++;
-   cout<<pnt+1<<tm;
+	Process idle(-1,0,0);
 
-}while(noe!=0);
 
-// for(int x=0;x<5;x++){
-//     tt=ct[x]-at[x];
-//     wt=tt-bt[x];
-//     cout<<"P"<<x+1<<" \t "<<at[x]<<" \t "<<bt[x]<<" \t "<<ct[x]<<" \t "<<tt<<" \t "<<wt<<"\n";
-//     awt=awt+wt;
-//     att=att+tt;
-// }//for
+	for(int i=0; i<n; i++)
+		process_list.push_back(Process(process_id[i], arrival_time[i], burst_time[i]));
 
-}//main
+// Bubble sort on arrival_time:
+	for(int i=0; i<n; i++)
+		for (int j=1; j<n-i; j++)
+			if (process_list.at(j).arrival_time < process_list.at(j-1).arrival_time){
+				Process temp = process_list.at(j);
+				process_list.at(j) = process_list.at(j-1);
+				process_list.at(j-1)= temp;
+			}
+			
+	if(process_list.at(0).arrival_time > 0)
+		idle.completion_time = process_list.at(0).arrival_time;	
+	
+	
+	gantt.push_back(idle);
+	
+	ready_queue.push(&process_list.at(0));
+	
+	while( !ready_queue.empty() ){
+		Process* current = ready_queue.front();
+		ready_queue.pop();
+		
 
-void SearchStack01(int pnt,int tm){
-    for(int x=pnt+1;x<5;x++){
-       if(at[x]<=tm){
-          rqi[noe]=x+1;
-          noe++;}
-    }//for
-}//void
+		if(current->remaining_time <= tq){
+			current->completion_time = gantt.back().completion_time + current->remaining_time;
+			current->remaining_time = 0;
+		}
+		else{
+			current->completion_time = gantt.back().completion_time + tq;
+			current->remaining_time = current->remaining_time - tq;
+		}
+		
+		
+		for(Process& p: process_list){
+			if(p.arrival_time > gantt.back().completion_time && p.arrival_time <= current->completion_time ){
+				ready_queue.push(&p);
+			}
+		}
+		
+		if(current->remaining_time != 0)
+			ready_queue.push(current);
+		
+		gantt.push_back(*current);
 
-void SearchStack02(int pnt, int tm){
-    for(int x=pnt+1;x<5;x++){
-       //---CheckQue
-       int fl=0;
-       for(int y=0;y<noe;y++){
-          if(rqi[y]==x+1){
-             fl++;}}
-       if(at[x]<=tm && fl==0 && btm[x]!=0){
-          rqi[noe]=x+1;
-          noe++;}
-    }//for
-}//void
+		if (ready_queue.empty() )
+			for (Process& p: process_list)
+				if(p.remaining_time != 0 ){
+					idle.arrival_time = gantt.back().completion_time;
+					idle.completion_time = p.arrival_time;
+					gantt.push_back(idle);
+					ready_queue.push(&p);
+					break;
+				}
+		
+	}
 
-void AddQue(int pnt){
-    rqi[noe]=pnt+1;
-    noe++;
+	for (Process& p: gantt)
+		if (p.process_id == -1){
+			if (p.completion_time != 0)
+				printf("");
+		}
+		else{
+			printf("%d ", p.process_id);
+      }
+		
+	return 0;
 }

@@ -3,11 +3,11 @@
 int main()
 {
 
-    int a[][2][2] = {
-        {{1, 2},
-         {3, 4}},
-        {{5, 6},
-         {7, 8}}};
+    int a[3][2][2] = {
+        {{2, 11},{12, 19}},
+        {{21, 22},{28, 37}},
+        {{39,69},{75,92}}
+        };
 
     // we'll find the start, end and pivot value using base pointer
     // Starting address of the 1D array
@@ -20,7 +20,7 @@ int main()
     // Cant divide address by 2, not allowed
     int step = (sizeof(a) / sizeof(int)) / 2;
     // Value to be searched in the array
-    int val = 8;
+    int val = 75;
     // Counter to tell the number of iterations
     int i = 1;
 
@@ -45,7 +45,7 @@ int main()
         }
         else
         {
-            printf("Value found in %d loop runs", i);
+            printf("Value found in %d loop runs", i+step);
             exit(0);
         }
         i++;
