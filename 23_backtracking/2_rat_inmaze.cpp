@@ -26,6 +26,7 @@ void mazehelp(int **maze,int n,int** solution,int x,int y){
     if(x==n-1&&y==n-1){
         solution[x][y]=1;
         printsolution(solution,n);
+        solution[x][y]=0;
         return;
     }
 
