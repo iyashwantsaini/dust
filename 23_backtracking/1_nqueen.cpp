@@ -62,4 +62,4 @@ void placequeens(int n){
 int main(){
 
     placequeens(4);
-}   
+}    
