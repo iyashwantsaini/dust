@@ -42,7 +42,7 @@ int main(){
         storage[i]=new int[num_den+1];
     }
     for(int i=0;i<=n;i++){
-        for(int j=0;j<=num_den;j++){
+        for(int j=0;j<=num_den;j++){ 
             storage[i][j]=-1;
         }
     }
