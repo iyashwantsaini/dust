@@ -12,7 +12,7 @@ int lcs(char *s1,char *s2){
     int n=strlen(s2);
     int **dp=new int*[m+1];
     for(int i=0;i<=m;i++){
-        dp[i]=new int[n+1];
+        dp[i]=new int[n+1]; 
     }
     // base cases
     // 0th rows and cols = 0 
