@@ -13,7 +13,7 @@ typedef long long int ll;
 // improved recursively o(2n)
 ll fib2(ll n,ll *a){
     if(n==0|n==1){
-        return 1;
+        return 1; 
     }
     if(a[n]>0){
         return a[n];
