@@ -25,7 +25,7 @@ int knapsnack(int *val,int *wt,int W,int n){
     }
     int ans=dp[n][W];
     for(int i=0;i<=n;i++){
-        delete [] dp[i];
+        delete [] dp[i]; 
     }
     delete [] dp;
     return ans;

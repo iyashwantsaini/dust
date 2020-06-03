@@ -28,7 +28,7 @@ int knapsnack(int *val,int *wt,int W,int n){
     for(int i=0;i<=n;i++){
         dp[i]=new int[W+1];
     }
-    for(int i=0;i<=n;i++){
+    for(int i=0;i<=n;i++){ 
         for(int j=0;j<=W;j++){
             dp[i][j]=0;
         }
