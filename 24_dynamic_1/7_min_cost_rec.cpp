@@ -22,7 +22,7 @@ typedef long long ll;
 //     int dir1=min_cost(a,si+1,sj,ei,ej); //down
 //     int dir2=min_cost(a,si,sj+1,ei,ej); //right
 //     int dir3=min_cost(a,si+1,sj+1,ei,ej); //diagonally
-//     return a[si][sj]+min(dir1,min(dir2,dir3));
+//     return a[si][sj]+min(dir1,min(dir2,dir3)); 
 // }
 
 // dynamic
