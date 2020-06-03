@@ -30,7 +30,7 @@ ll solvecandy(int **like,int n){
         for(int i=0;i<n;i++){
             if(like[k][i] && !(mask&(1<<i))){
                 dp[mask]+=dp[mask | (1<<i)];
-            }
+            } 
         }
     }
     return dp[0];
