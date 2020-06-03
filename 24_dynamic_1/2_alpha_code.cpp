@@ -46,7 +46,7 @@ int num_codes(int *n,int size){
     for(int i=2;i<=size;i++){
         output[i]=output[i-1];
         if(n[i-2]*10+n[i-2]<=26){
-            output[i]+=output[i-2];
+            output[i]+=output[i-2]; 
         }
     }
     int ans=output[size];
