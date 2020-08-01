@@ -11,7 +11,7 @@ void fun(int n){
 }
 
 int main(){
-	int n{};
+	int n{}; //lists initialization -- set to 0
 	cout<<"enter n :";
 	cin>>n;
 	fun(n);

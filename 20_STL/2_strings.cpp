@@ -12,7 +12,7 @@ int main(){
     // cout<<s1;
 
     string s1(s,2,4);
-    // cout<<s1;
+    cout<<s1;
 
     string s2=s.substr(2,4);
     // cout<<s2;

@@ -19,5 +19,4 @@ int main(){
 	cin>>a>>b>>c;
 	cout<<"steps for moving disks from "<<a<<" to "<<c<<" : "<<endl;
 	toh(n,a,b,c);
-	
 }

@@ -21,9 +21,9 @@ void permuteall(char *str,int l,int r){
     return;
 }
 int main() {
-    char str[] = "ABCD";
+    char str[] = "ABC";
     int l=0; //low
-    int r=3; //high
+    int r=2; //high
     cout<<"All permutations of "<<str<<" : "<<endl;
     permuteall(str,l,r);
 }

@@ -8,5 +8,8 @@ int main(){
     for (i=0; s[i] != '\0'; i++)
     {}
     cout<<"length of string is : "<<i;
+    // or
+    cout<<s.length();
     return 0;
+
 }
