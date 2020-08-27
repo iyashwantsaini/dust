@@ -1,29 +1,79 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-// n*n chessboard
-// place n queens
+int board[11][11]{};
 
-int board[11][11];
-
-void nQueenHelper(int n,int row){
-    if(row==n){
-        // sol reache d
-        // print mat
-        // return
+bool isPossible(int n, int row, int col)
+{
+    // col
+    for (int i = row - 1; i >= 0; i--)
+    {
+        if (board[i][col] == 1)
+        {
+            return false;
+        }
     }
-    // place at all possible positions
-    // move to smaller problem
-
+    // diag right
+    for (int i = row - 1, j = col - 1; i >= 0 && j >= 0; i--, j--)
+    {
+        if (board[i][j] == 1)
+        {
+            return false;
+        }
+    }
+    // diag left
+    for (int i = row - 1, j = col + 1; i >= 0 && j < n; i--, j++)
+    {
+        if (board[i][j] == 1)
+        {
+            return false;
+        }
+    }
+    return true;
 }
 
-void placeQueens(int n){
-    memset(board,0,11*11*sizeof(int));
-    int n=0;
-    nQueenHelper(n,0);
+void solver(int n, int row)
+{
+    if (row == n)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = 0; j < n; j++)
+            {
+                cout << board[i][j] << " ";
+            }
+            cout << "\n";
+        }
+        cout << "\n";
+        return;
+    }
+    for (int j = 0; j < n; j++)
+    {
+        if (isPossible(n, row, j))
+        {
+            board[row][j] = 1;
+            solver(n, row + 1);
+            board[row][j] = 0;
+        }
+    }
+    return;
 }
 
-int main(){
-    placeQueens(4);
-    return 0;
+void nqueens(int n)
+{
+    // for (int i = 0; i < n; i++)
+    // {
+    //     for (int j = 0; j < n; j++)
+    //     {
+    //         cout << board[i][j] << " ";
+    //     }
+    //     cout << "\n";
+    // }
+    // cout << "\n\n";
+    solver(n, 0);
+}
+
+int main()
+{
+    nqueens(4);
 }
