@@ -23,7 +23,7 @@ int helper(int *val,int *wt,int W,int n,int **dp){
     }
 }
 
-int knapsnack(int *val,int *wt,int W,int n){
+int knapsack(int *val,int *wt,int W,int n){
     int **dp=new int*[n+1];
     for(int i=0;i<=n;i++){
         dp[i]=new int[W+1];
@@ -46,5 +46,5 @@ int main(){
     int wt[]={1,2,3,5};
     int W=5;
     int n=4;
-    cout<<knapsnack(val,wt,W,n)<<endl;
+    cout<<knapsack(val,wt,W,n)<<endl;
 }
